@@ -44,7 +44,7 @@ export const createTask = async (taskdata: CreateTaskRequest): Promise<any> =>{
     return await task.save();
 }
 
-export const updateTask = async (id:string,updates:UpdateTaskRequest): Promise <Task1 | null> =>{
+export const updateTask = async (id:string,updates:UpdateTaskRequest): Promise <any> =>{
     if(!id.match(/^[0-9a-fA-F]{24}$/)){
         throw new Error('Invalid task ID format');
     }
