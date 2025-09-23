@@ -25,7 +25,7 @@ export const getAllTasks = async(filters:{
     }
     return await Task.find(query).sort({createdAt:-1});
 }
-export const getTaskById = async (id:string): Promise<Task1 | null> =>{
+export const getTaskById = async (id:string): Promise<any> =>{
     if(!id.match(/^[0-9a-fA-F]{24}$/)){
         throw new Error('Invalid task ID format');
     }
