@@ -37,10 +37,11 @@ npx tailwindcss init -p
 
 ### Phase 1.2: Essential Configuration Files
 
-**Update `tailwind.config.js`:**
-```javascript
-/** @type {import('tailwindcss').Config} */
-export default {
+**Update `tailwind.config.ts`:**
+```typescript
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -115,6 +116,8 @@ export default {
   },
   plugins: [],
 }
+
+export default config
 ```
 
 **Create `.env.local`:**
