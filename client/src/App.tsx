@@ -2,21 +2,21 @@ import React from 'react';
 import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { config } from './lib/config';
-import { AppLayout } from './components/layout/AppLayout';
+import AppLayout from './components/layout/AppLayout';
 import { Dashboard } from './pages/Dashboard';
 import { TaskList } from './pages/TaskList';
-import { TaskStats } from './components/task/TaskStats';
+import { Settings } from './pages/Settings';
 import './index.css';
 
 // Initialize API client with auth
-import { apiClient } from './lib/api-client';
+import { setAuthTokenProvider } from './lib/api-client';
 import { useAuth } from '@clerk/clerk-react';
 
 const AppWithAuth: React.FC = () => {
   const { getToken } = useAuth();
   
   React.useEffect(() => {
-    apiClient.setTokenProvider(getToken);
+    setAuthTokenProvider(getToken);
   }, [getToken]);
 
   return (
@@ -25,7 +25,7 @@ const AppWithAuth: React.FC = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/tasks" element={<TaskList />} />
-        <Route path="/stats" element={<TaskStats />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </AppLayout>
   );

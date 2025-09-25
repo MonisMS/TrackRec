@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTaskStore } from '../stores/task-store';
-import { TaskStats } from '../components/task/TaskStats';
+import TaskStats from '../components/task/TaskStats';
 import { TaskCard } from '../components/task/TaskCard';
 import { Button } from '../components/ui/button';
 import { Plus } from 'lucide-react';

@@ -4,7 +4,6 @@ import { Input } from '../components/ui/input';
 import { Switch } from '../components/ui/switch';
 import { Select } from '../components/ui/select';
 import { 
-  Settings as SettingsIcon, 
   User, 
   Bell, 
   Palette, 
@@ -12,10 +11,10 @@ import {
   Download,
   Trash2
 } from 'lucide-react';
-import { useAuth } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 
 export const Settings: React.FC = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const [settings, setSettings] = React.useState({
     notifications: true,
     emailDigest: false,
@@ -171,7 +170,7 @@ export const Settings: React.FC = () => {
             <label className="text-sm font-medium">Default Priority</label>
             <Select 
               value={settings.defaultPriority}
-              onChange={(value) => handleSettingChange('defaultPriority', value)}
+              onChange={(e) => handleSettingChange('defaultPriority', e.target.value)}
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>

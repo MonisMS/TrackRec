@@ -1,13 +1,13 @@
 import React from 'react';
-import { useTaskStore } from '../stores/task.store';
+import { useTaskStore } from '../stores/task-store';
 import { TaskCard } from '../components/task/TaskCard';
 import { TaskForm } from '../components/task/TaskForm';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Select } from '../components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
-import { Plus, Search, Filter } from 'lucide-react';
-import { CreateTaskInput, Task } from '../types';
+import { Plus, Search } from 'lucide-react';
+import type { CreateTaskRequest, UpdateTaskRequest, Task } from '../types';
 
 export const TaskList: React.FC = () => {
   const { 
@@ -46,14 +46,14 @@ export const TaskList: React.FC = () => {
     return () => clearTimeout(timer);
   }, [searchValue, setFilters]);
 
-  const handleCreateTask = async (data: CreateTaskInput) => {
-    await createTask(data);
+  const handleCreateTask = async (data: CreateTaskRequest | UpdateTaskRequest) => {
+    await createTask(data as CreateTaskRequest);
     setShowCreateForm(false);
   };
 
-  const handleUpdateTask = async (data: CreateTaskInput) => {
+  const handleUpdateTask = async (data: CreateTaskRequest | UpdateTaskRequest) => {
     if (editingTask) {
-      await updateTask(editingTask.id, data);
+      await updateTask(editingTask.id, data as UpdateTaskRequest);
       setEditingTask(null);
     }
   };
@@ -112,7 +112,7 @@ export const TaskList: React.FC = () => {
 
         <Select
           value={filters.priority || ''}
-          onChange={(value) => setFilters({ priority: value || undefined })}
+          onChange={(e) => setFilters({ priority: e.target.value || undefined })}
         >
           <option value="">All Priorities</option>
           <option value="low">Low</option>
@@ -122,9 +122,9 @@ export const TaskList: React.FC = () => {
 
         <Select
           value={filters.isCompleted !== undefined ? filters.isCompleted.toString() : ''}
-          onChange={(value) => 
+          onChange={(e) => 
             setFilters({ 
-              isCompleted: value === '' ? undefined : value === 'true' 
+              isCompleted: e.target.value === '' ? undefined : e.target.value === 'true' 
             })
           }
         >
